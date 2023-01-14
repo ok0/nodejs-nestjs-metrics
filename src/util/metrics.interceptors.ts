@@ -67,9 +67,6 @@ export class MetricsInterCeptor implements NestInterceptor {
     const req = context.switchToHttp().getRequest();
     const res = context.switchToHttp().getResponse();
     this.addHttpMetric(req, res, startEpoch);
-    if (req.path == '/metrics') {
-      res.set('Content-Type', register.contentType);
-    }
 
     return reponse;
   }

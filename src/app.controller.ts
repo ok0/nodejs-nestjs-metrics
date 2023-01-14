@@ -1,4 +1,4 @@
-import { Controller, Get, Response, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Header, UseInterceptors } from '@nestjs/common';
 import { register } from 'prom-client';
 import { AppService } from './app.service';
 import { MetricsInterCeptor } from './util/metrics.interceptors';
@@ -24,6 +24,7 @@ export class AppController {
   }
 
   @Get('/metrics')
+  @Header('Content-Type', register.contentType)
   getMetrics(): Promise<string> {
     return register.metrics();
   }
