@@ -26,7 +26,7 @@ export class MetricsInterCeptor implements NestInterceptor {
     const labelNames = ['method', 'uri', 'code'];
     this.httpRequestsTotalCounter = new Counter({
       labelNames,
-      name: 'http_requests_total',
+      name: 'nodejs_http_requests_total',
       help: 'Total number of HTTP requests',
     });
 
