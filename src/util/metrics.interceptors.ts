@@ -9,7 +9,6 @@ import {
   Counter,
   exponentialBuckets,
   Histogram,
-  register,
   Summary,
 } from 'prom-client';
 import { Observable } from 'rxjs';
