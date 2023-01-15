@@ -30,12 +30,6 @@ export class MetricsInterCeptor implements NestInterceptor {
       help: 'Total number of HTTP requests',
     });
 
-    this.httpRequestsTotalCounter = new Counter({
-      labelNames,
-      name: 'nodejs_http_requests_total',
-      help: 'Total number of HTTP requests',
-    });
-
     this.httpRequestSizeBytesSummary = new Summary({
       labelNames,
       name: 'nodejs_http_request_size_bytes',
