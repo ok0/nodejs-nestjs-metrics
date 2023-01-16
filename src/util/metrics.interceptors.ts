@@ -4,6 +4,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 import {
   collectDefaultMetrics,
   Counter,
@@ -64,10 +65,10 @@ export class MetricsInterCeptor implements NestInterceptor {
     return reponse;
   }
 
-  addHttpMetric(req: any, res: any, startEpoch: number) {
+  addHttpMetric(req: Request, res: Response, startEpoch: number) {
     const httpRequestMethod = req.method;
     const httpRequestPath = req.path;
-    const httpResponseStatus = res.statusCode;
+    const httpResponseStatus = res.statusCode.toString();
 
     // TotalCount
     this.httpRequestsTotalCounter
@@ -78,14 +79,14 @@ export class MetricsInterCeptor implements NestInterceptor {
     if (req.headers['content-length']) {
       this.httpRequestSizeBytesSummary
         .labels(httpRequestMethod, httpRequestPath, httpResponseStatus)
-        .observe(req.headers['content-length']);
+        .observe(Number(req.headers['content-length']));
     }
 
     // Response Bytes
     if (res.getHeader('content-length')) {
       this.httpResponseSizeBytesSummary
         .labels(httpRequestMethod, httpRequestPath, httpResponseStatus)
-        .observe(res.getHeader('content-length'));
+        .observe(Number(res.getHeader('content-length')));
     }
 
     // Response Time
